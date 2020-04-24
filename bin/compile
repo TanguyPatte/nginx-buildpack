@@ -60,6 +60,13 @@ pmsgr=/tmp/pmsgr
 rm -f \$pmsgr
 mkfifo \$pmsgr
 
+if [ -z "$BASIC_AUTH" ]
+then
+      echo "no BASIC_AUTH configured"
+else
+      echo "\$BASIC_AUTH" > \$basedir/vendor/nginx/conf/.htpasswd
+fi
+
 [ -f \$basedir/servers.conf.erb ] && export HAS_SERVER_CONF=true
 
 erb base_nginx.conf.erb > "\$basedir/vendor/nginx/conf/nginx.conf"

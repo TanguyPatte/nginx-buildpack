@@ -106,6 +106,23 @@ server {
 }
 ```
 
+### Basic Auth
+
+If you want to set a basic auth, provide a environment variable with the hash called `BASIC_AUTH` and it will deploy it in a file `conf/.htpasswd`
+
+To genere the hash, use htpasswd:
+
+```bash
+htpasswd -nbB user_name password
+```
+Example to use it in your nginx config template:
+```
+<% if ENV['BASIC_AUTH'] %>
+  auth_basic           "Restricted Area";
+  auth_basic_user_file conf/.htpasswd;
+<% end %>
+```
+
 ## Advanced Information
 
 The configuration file you have to provide is at the `server` level, if you need
